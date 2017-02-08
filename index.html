@@ -3,17 +3,44 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-
 </head>
 <body ng-app="pokedex">
 
 	<div class="container">
 		<h1>Pokésir</h1>
+		
+		<!-- Search Q1-->
+		<div>
+			<label for="id">test</label>
+			<input type="text" id="id" ng-model="id" /> <span>{{id}}</span>
+			</br></br></br>
+		</div>
+		
+		<!-- Search Q3-Q6 -->
+		<div ng-controller="rechercheCrtl">
+			<input type="text" id="filtre" ng-model="filtre" placeholder="Rechercher"/>
+			</br>
+			<input type="text" id="mod" ng-model="mod" placeholder="Id"/>
+			<select ng-model="mod">
+				<option ng-repeat="poke in (pokemons | filter:filtre)" value={{poke.id}}>{{poke.nom}}</option>
+			</select>
+			</br></br></br></br>
+		</div>
 
-		<!-- Search -->
-		<div></div>
+		<!-- Search Q7-Q9-->
+		<div ng-controller="rechercheCrtl">
+			<form action="">
+				<input type="text" id="filtre" ng-model="filtreID" placeholder="Rechercher Id"/>
+				</br>
+				<input type="text" id="filtre" ng-model="filtreNom" placeholder="Rechercher nom"/>
+				</br>
+				<select ng-model="model">
+					<option ng-repeat="poke in filtered=(pokemons | filter:filtreID | filter:filtreNom )" value={{poke.id}}>{{poke.nom}}</option>
+				</select>
+				<button type="button" ng-click="go()">Go !</button>
+			</form>
+		</div>
 
 		<!-- Pokémon information -->
 		<div></div>
@@ -28,7 +55,6 @@
 
     <!-- Pokedex app -->
     <script src="js/pokedex.js"></script>
-
-
+    
 </body>
 </html>
