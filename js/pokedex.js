@@ -7,7 +7,7 @@ pokeApp.config(['$resourceProvider', function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
 }]);
 
-pokeApp.controller("rechercheCrtl",["$scope", "$log",function($scope){
+pokeApp.controller("rechercheCrtl",["$scope", "$log",function($scope, $log){
 	$scope.pokemons = [
 		{
 			id: 1,
