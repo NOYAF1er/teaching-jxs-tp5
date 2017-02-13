@@ -18,7 +18,7 @@
 				<input type="text" id="filtre" ng-model="filtreNom" placeholder="Rechercher nom"/>
 				</br>
 				<select ng-model="pokeSelected">
-					<option value={{poke.resource_uri}} ng-repeat="poke in filtered=(pokemons | filter:filtreID | filter:filtreNom )">{{poke.name}}</option>
+					<option value={{poke}} ng-repeat="poke in filtered=(pokemons | filter:filtreID | filter:filtreNom )">{{poke.name}}</option>
 				</select>
 				<button type="button" ng-click="go()">Go !</button>
 			</form>
