@@ -11,8 +11,8 @@
 		<h1>Pokésir</h1>
 
 		<!-- Search -->
-		<div ng-controller="rechercheCrtl">
-			<form action="">
+		<div ng-controller="pokeListCrtl" class="pokemonSearchBox">
+			<form action="" class="pokemonSearchForm">
 				<input type="text" id="filtre" ng-model="filtreID" placeholder="Rechercher Id"/>
 				</br>
 				<input type="text" id="filtre" ng-model="filtreNom" placeholder="Rechercher nom"/>
@@ -25,7 +25,18 @@
 		</div>
 
 		<!-- Pokémon information -->
-		<div></div>
+		<div ng-controller="pokeViewCrtl" class="pokemonView">
+			<h2>Poke Info</h2>
+			<ul>
+				<li><span>Id:</span> {{id}} </li>
+				<li><span>Name:</span> {{name}} </li>
+				<li><span>Moves:</span>
+					<ul>
+						<li ng-repeat="move in moves">{{move.name}}</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 
 	</div>
 
