@@ -1,7 +1,7 @@
 var pokeApp = angular.module('pokedex', ['ngResource']);
 
 // With this you can inject POKEAPI url wherever you want
-pokeApp.constant('POKEAPI', 'http://pokeapi.co');
+pokeApp.constant('POKEAPI', 'http://pokeapi.co/api/v1/');
 
 pokeApp.config(['$resourceProvider', function($resourceProvider) {
     $resourceProvider.defaults.stripTrailingSlashes = false;
@@ -9,7 +9,10 @@ pokeApp.config(['$resourceProvider', function($resourceProvider) {
 
 /*------ services -------*/
 
-pokeApp.factory('PokemonServices', ['$http', '$q', function($http, $q) {
+/**
+ * Charge la liste des pokemeons
+ */
+pokeApp.factory('PokemonsService', ['$http', '$q', 'POKEAPI', function($http, $q, POKEAPI) {
 	var factory = {
 		    pokemons: false,
 			get: function() {
@@ -18,13 +21,13 @@ pokeApp.factory('PokemonServices', ['$http', '$q', function($http, $q) {
 					deferred.resolve(factory.pokemons);
 				}
 				else{
-					$http.get('http://pokeapi.co/api/v1/pokedex/1/')
+					$http.get(POKEAPI + 'pokedex/1/')
 						.success(function(data, status){
 							factory.pokemons = data.pokemon;
 							deferred.resolve(factory.pokemons);
 						})
-						.error(function(data, status){
-								deferred.reject("Impossible de recupérer les données");
+						.error(function(error, status){
+							deferred.reject("Impossible de recupérer les données.");
 						})
 				}
 				return deferred.promise;
@@ -33,21 +36,20 @@ pokeApp.factory('PokemonServices', ['$http', '$q', function($http, $q) {
 	return factory; 
 }]);
 
-pokeApp.provider('PokemonService', ['$http', function($http) {
-	this.get = function() {
-		$http.get('http://pokeapi.co/api/v1/pokedex/1/')
-		.success(function(data, status){
-			return data.pokemon;
-		})
-		.error(function(data, status){
-			return "Impossible de recupérer les données";
-		});
-	}
+/**
+ * Charge les informations relatives à un pokemon donné
+ */
+pokeApp.factory('InfoService', ['$resource', 'POKEAPI', function($resource, POKEAPI) {
+	return $resource(POKEAPI + 'pokemon/:id'); 
 }]);
+
 /*------ controllers -------*/
 
-pokeApp.controller("rechercheCrtl",["$scope", "$log", "PokemonService",function($scope, $log, PokemonService){
-	PokemonService.get().then(function(data){
+/**
+ * Recupère tous les pokemeons
+ */
+pokeApp.controller("pokeListCrtl",["$scope", "$log", "PokemonsService", function($scope, $log, PokemonsService){
+	PokemonsService.get().then(function(data){
 		$scope.pokemons = data;
 	}, function(msg){
 		alert(msg);
@@ -59,16 +61,15 @@ pokeApp.controller("rechercheCrtl",["$scope", "$log", "PokemonService",function(
 			
 }]);
 
-pokeApp.controller("infoCrtl",["$scope", "$log", "InfoService",function($scope, $log, InfoService){
-	PokemonService.get().then(function(data){
-		$scope.pokemons = data;
-	}, function(msg){
-		alert(msg);
+/**
+ * Recupère les informations relatives au pokemon selectionné
+ */
+pokeApp.controller("pokeViewCrtl",["$scope", "$log", "InfoService", function($scope, $log, InfoService){	
+	var info = InfoService.get({id:"1"}, function(){
+		$log.info(info);
+		$scope.id = info.pkdx_id;
+		$scope.name = info.name;
+		$scope.moves = info.moves;
+		$scope.sprites = info.sprites;
 	});
-	
-	
-	$scope.go = function(){
-		$log.info($scope.pokeSelected);
-	}
-			
 }]);
