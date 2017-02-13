@@ -28,11 +28,11 @@
 		<div ng-controller="pokeViewCrtl" class="pokemonView">
 			<h2>Poke Info</h2>
 			<ul>
-				<li><span>Id:</span> {{id}} </li>
-				<li><span>Name:</span> {{name}} </li>
+				<li><span>Id:</span> {{poke.id}} </li>
+				<li><span>Name:</span> {{poke.name}} </li>
 				<li><span>Moves:</span>
 					<ul>
-						<li ng-repeat="move in moves">{{move.name}}</li>
+						<li ng-repeat="move in poke.moves">{{move.name}}</li>
 					</ul>
 				</li>
 			</ul>
