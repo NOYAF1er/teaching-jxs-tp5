@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
+
 <body ng-app="pokedex">
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">PokeSIR V0.3</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				<span class="navbar-text navbar-right">Make by <a href="#" class="navbar-link">Yannick N'GUESSAN & Christian ADANE</a></span>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</nav><!-- /.navbar -->
 
 	<div class="container">
-		<h1>Pokésir</h1>
 
-		<!-- Search -->
-		<div ng-controller="pokeListCrtl" class="pokemonSearchBox">
-			<form action="" class="pokemonSearchForm">
-				<input type="text" id="filtre" ng-model="filtreID" placeholder="Rechercher Id"/>
-				</br>
-				<input type="text" id="filtre" ng-model="filtreNom" placeholder="Rechercher nom"/>
-				</br>
-				<select ng-model="pokeSelected">
-					<option value={{poke}} ng-repeat="poke in filtered=(pokemons | filter:filtreID | filter:filtreNom )">{{poke.name}}</option>
-				</select>
-				<button type="button" ng-click="go()">Go !</button>
-			</form>
-		</div>
+		<header class="page-header">
+			<h1>Hey, PokeFan ! <small>You can find your favorite pokemon details...</small></h1>
+		</header>
 
-		<!-- Pokémon information -->
-		<div ng-controller="pokeViewCrtl" class="pokemonView">
-			<h2>Poke Info</h2>
-			<ul>
-				<li><span>Id:</span> {{poke.id}} </li>
-				<li><span>Name:</span> {{poke.name}} </li>
-				<li><span>Moves:</span>
-					<ul>
-						<li ng-repeat="move in poke.moves">{{move.name}}</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+		<pokedex></pokedex>
 
-	</div>
+	</div><!-- /.container -->
 
-    <!-- Dependencies -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-resource.min.js"></script>
+	<!-- Dependencies -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-resource.min.js"></script>
 
-    <!-- Pokedex app -->
-    <script src="js/pokedex.js"></script>
-    
+	<!-- Pokedex app -->
+	<script src="js/pokedex.js"></script>
+
 </body>
+
 </html>

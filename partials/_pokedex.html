@@ -1,0 +1,55 @@
+<section>
+    <!-- Search -->
+    <div ng-controller="pokeListCrtl" class="row">
+        <div class="panel panel-primary pokemonSearchBox">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline">
+                    <div class="input-group col-lg-3">
+                        <input type="text" id="filtreID" class="form-control" ng-model="filtreID" placeholder="Rechercher Id"/>
+                    </div>
+                    <div class="input-group col-lg-3">
+                        <input type="text" id="filtreNom" class="form-control" ng-model="filtreNom" placeholder="Rechercher nom"/>
+                    </div>
+                    <div class="input-group col-lg-5">
+                        <select class="form-control" ng-model="pokeSelected">
+                            <option value={{poke}} ng-repeat="poke in filtered=(pokemons | filter:filtreID | filter:filtreNom )">{{poke.name}}</option>
+                        </select>
+                    </div>
+                    <button type="button" ng-click="go()" class="btn btn-warning">Go !</button>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.row -->
+
+    <!-- Pokémon information -->
+    <div  ng-controller="pokeViewCrtl" class="row">
+        <div class="panel panel-primary pokemonView" ng-show="pokeSelected.id">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span>{{poke.name}}</span> <span>No.{{poke.id}}</span></h3>
+            </div>
+            <div class="panel-body">
+                <ul id="pokemonDetails" class="col-lg-3 list-unstyled">
+                    <li><img class="img-responsive img-thumbnail" src="http://pokeapi.co{{poke.img.image}}" alt="{{poke.img.name}}_img" /></li>
+                    <li><span class="">Attack:</span> {{poke.attack}} </li>
+                    <li><span class="">Defense:</span> {{poke.defense}} </li>
+                    <li><span class="">Speed:</span> {{poke.speed}} </li>
+                    <li><span class="">Catch rate:</span> {{poke.catch_rate}} </li>
+                    <li><span class="">Exp:</span> {{poke.exp}} </li>
+                    <li><span class="">happiness:</span> {{poke.happiness}} </li>
+                </ul>
+                <div class="col-lg-4">
+                    <span class="">Moves:</span>
+                    <ul class="list-inline">
+                        <li ng-repeat="move in poke.moves">{{move.name}} | </li>
+                    </ul>
+                </div>
+                <div id="pokemonImg" class="col-lg-5">
+                    
+                </div>
+            </div>
+        </div>
+    </div><!-- /.row -->
+</section>
